@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Seminar3</string>
+    <string name="text_get_quotations">Obtener citas</string>
+    <string name="text_favourite_quotations">Citas favoritas</string>
+    <string name="text_settings">Configuracion</string>
+    <string name="text_about">Acerca de</string>
+    <string name="button_about_author">Acerca del autor</string>
+    <string name="tag_quotation_shake">Conjunto de citas</string>
+    <string name="tag_random_quotations">Citas aleatorias</string>
+    <string name="tag_favourite_quotations">Citas favoritas</string>
+    <string name="tag_get_quotations">Obtener citas</string>
+    <string name="tag_settings">Configuracion</string>
+    <string name="tag_about">Acerca de</string>
+    <string name="text_tag_quotation_shake">Conjunto de citas de[...]</string>
+    <string name="text_view_user_name">Nombre que identifica al usuario</string>
+    <string name="edit_text_user_name">Inserta tu nombre</string>
+    <string name="text_view_quotations_language">Las citas serán recibidas en el lenguaje seleccionado</string>
+    <string name="text_view_requests_method">Las peticiones web serán llevadas a cabo usando el metodo HTTP seleccionado</string>
+    <string name="search_uri">http://es.wikipedia.org/wiki/Special:Search?search=</string>
+    <string name="text_view_refresh_info">Hola %1s! Pulsa \\\'Refrescar\\\' para obtener una nueva cita</string>
+    <string name="text_view_sample_quotation">Esto es una muestra de cita</string>
+    <string name="text_view_sample_author">Esto es una muestra de autor</string>
+</resources>
