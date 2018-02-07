@@ -16,9 +16,8 @@ public class FavouriteActivity extends AppCompatActivity {
 
     public void aboutAuthorClickListener(View view) {
         String aboutAuthor = "Albert Einstein";
-        Intent aboutAuthorIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.search_uri)
-                + aboutAuthor));
-        if(aboutAuthorIntent.resolveActivity(getPackageManager()) != null){
+        Intent aboutAuthorIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.search_uri) + aboutAuthor));
+        if (aboutAuthorIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(aboutAuthorIntent);
         }
     }

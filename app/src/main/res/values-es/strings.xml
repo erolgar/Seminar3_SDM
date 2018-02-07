@@ -21,4 +21,6 @@
     <string name="text_view_refresh_info">Hola %1s! Pulsa \\\'Refrescar\\\' para obtener una nueva cita</string>
     <string name="text_view_sample_quotation">Esto es una muestra de cita</string>
     <string name="text_view_sample_author">Esto es una muestra de autor</string>
+    <string name="english_language">Inglés</string>
+    <string name="russian_language">Ruso</string>
 </resources>

@@ -42,4 +42,8 @@
     <string name="text_view_refresh_info">Hello %1s!\nPress \'Refresh\' to get a new quotation</string>
     <string name="text_view_sample_quotation">This is a sample quotation</string>
     <string name="text_view_sample_author">This is a sample author</string>
+
+
+    <string name="english_language">English</string>
+    <string name="russian_language">Russian</string>
 </resources>
