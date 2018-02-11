@@ -9,6 +9,13 @@
     <!--FavouriteActivity stuff-->
     <string name="button_about_author">About Author</string>
     <string name="search_uri">http://en.wikipedia.org/wiki/Special:Search?search=</string>
+    <string name="remove_alert_question">Are you sure that you want to remove this quotation?</string>
+    <string name="remove_alert_yes">Yes, I do</string>
+    <string name="remove_alert_no">No, I don\'t</string>
+    <string name="remove_alert_title">Remove Quotation</string>
+    <string name="clear_all">Clear All</string>
+    <string name="random_option">Random Option</string>
+    <string name="clear_all_confirmation">Are you sure that you want to delete ALL your favourite quotations?</string>
 
     <!--Activity tags-->
     <string name="tag_quotation_shake">Quotation Shake</string>
@@ -42,7 +49,8 @@
     <string name="text_view_refresh_info">Hello %1s!\nPress \'Refresh\' to get a new quotation</string>
     <string name="text_view_sample_quotation">This is a sample quotation</string>
     <string name="text_view_sample_author">This is a sample author</string>
-
+    <string name="menu_button_add">Add</string>
+    <string name="menu_button_refresh">Refresh</string>
 
     <string name="english_language">English</string>
     <string name="russian_language">Russian</string>

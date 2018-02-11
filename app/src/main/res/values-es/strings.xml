@@ -23,4 +23,13 @@
     <string name="text_view_sample_author">Esto es una muestra de autor</string>
     <string name="english_language">Inglés</string>
     <string name="russian_language">Ruso</string>
+    <string name="remove_alert_question">¿Estás seguro de que quieres borrar esta cita?</string>
+    <string name="remove_alert_yes">Si</string>
+    <string name="remove_alert_no">No</string>
+    <string name="remove_alert_title">Borrar cita</string>
+    <string name="menu_button_add">Añadir</string>
+    <string name="menu_button_refresh">Recargar</string>
+    <string name="clear_all">Borrar Todo</string>
+    <string name="clear_all_confirmation">¿Estás seguro de que quieres borrar todas tus citas favoritas?</string>
+    <string name="random_option">Opción aleatoria</string>
 </resources>

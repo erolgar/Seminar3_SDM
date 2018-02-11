@@ -20,15 +20,25 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="@string/tag_about" />
+            android:label="@string/tag_about"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/tag_settings"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:parentActivityName=".DashboardActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity
             android:name=".FavouriteActivity"
-            android:label="@string/tag_favourite_quotations" />
-        <activity android:name=".QuotationActivity" android:label="@string/tag_random_quotations"></activity>
+            android:label="@string/tag_favourite_quotations"
+            android:parentActivityName=".DashboardActivity"></activity>
+        <activity
+            android:name=".QuotationActivity"
+            android:label="@string/tag_random_quotations"
+            android:parentActivityName=".DashboardActivity"></activity>
     </application>
 
 </manifest>
