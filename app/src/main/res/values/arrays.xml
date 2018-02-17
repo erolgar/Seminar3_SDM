@@ -5,4 +5,26 @@
         <item>@string/russian_language</item>
     </array>
 
+    <array name="language_options_ids">
+        <item>@string/english_language_id</item>
+        <item>@string/russian_language_id</item>
+    </array>
+
+    <array name="web_service">
+        <item>@string/method_get</item>
+        <item>@string/method_post</item>
+    </array>
+
+    <array name="web_service_ids">
+        <item>@string/web_service_get_id</item>
+        <item>@string/web_service_post_id</item>
+    </array>
+    <array name="database_settings">
+        <item>@string/database_sqlhelper_text</item>
+        <item>@string/database_room_text</item>
+    </array>
+    <array name="database_settings_ids">
+        <item>@string/database_sqlhelper_id</item>
+        <item>@string/database_room_id</item>
+    </array>
 </resources>

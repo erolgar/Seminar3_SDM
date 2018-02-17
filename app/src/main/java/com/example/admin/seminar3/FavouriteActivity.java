@@ -1,8 +1,11 @@
 package com.example.admin.seminar3;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,21 +19,27 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Adapters.FavouriteQuotationsArrayAdapter;
+import databases.QuotationRoomDatabase;
+import databases.SQLiteOpenHelperSeminarDatabase;
 import pojoObjects.Quotation;
 
 public class FavouriteActivity extends AppCompatActivity {
 
+    private static final boolean CLEAR_ALL_QUOTATIONS_OPTION_VISIBLE = false;
+    private static final String LIST_PREFERENCE_DATABASE = "list_preference_database";
+    private static final int SQLITE_HELPER_DATABASE = 0;
+    private static final int ROOM_DATABASE = 1;
+
     private static FavouriteQuotationsArrayAdapter quotationsArrayAdapter;
     private static ListView listViewQuotations;
-
-    private static final boolean CLEAR_ALL_QUOTATIONS_OPTION_VISIBLE = false;
+    private static int selected_database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-
-        quotationsArrayAdapter = new FavouriteQuotationsArrayAdapter(FavouriteActivity.this, R.layout.quotation_list_row, getMockQuotations());
+        selectDatabase();
+        quotationsArrayAdapter = new FavouriteQuotationsArrayAdapter(FavouriteActivity.this, R.layout.quotation_list_row, getQuotations());
         listViewQuotations = findViewById(R.id.list_view_quotes);
         listViewQuotations.setAdapter(quotationsArrayAdapter);
 
@@ -50,6 +59,7 @@ public class FavouriteActivity extends AppCompatActivity {
                 alertRemove.setPositiveButton(R.string.remove_alert_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        deleteQuotation(position);
                         removeItemOfList(position);
                     }
                 });
@@ -65,6 +75,10 @@ public class FavouriteActivity extends AppCompatActivity {
         });
     }
 
+    private void selectDatabase() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        selected_database = sharedPreferences.getInt(LIST_PREFERENCE_DATABASE, 1);
+    }
 
     private void removeItemOfList(int pos) {
         quotationsArrayAdapter.remove(quotationsArrayAdapter.getItem(pos));
@@ -79,22 +93,25 @@ public class FavouriteActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<Quotation> getMockQuotations() {
+    private ArrayList<Quotation> getQuotations() {
 
-        ArrayList<Quotation> exampleData = new ArrayList<>();
+        return selected_database == SQLITE_HELPER_DATABASE ?
+                SQLiteOpenHelperSeminarDatabase.getInstance(this).getQuotations(this)
+                : QuotationRoomDatabase.getInstance(this).quotationDao().getQuotations();
+      /*  ArrayList<Quotation> exampleData = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {
             if (i % 2 == 0) exampleData.add(new Quotation("quoteExample" + i, "Albert Einstein"));
             else exampleData.add(new Quotation("quoteExample" + i, "Nikola Tesla"));
         }
-        return exampleData;
+        return exampleData;*/
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_favourite_activity, menu);
         if (this.quotationsArrayAdapter.isEmpty()) {
-            MenuItem itemClearAll = (MenuItem) findViewById(R.id.menu_item_clearall);
+            MenuItem itemClearAll = menu.findItem(R.id.menu_item_clearall);
             itemClearAll.setVisible(CLEAR_ALL_QUOTATIONS_OPTION_VISIBLE);
         }
         return true;
@@ -111,8 +128,10 @@ public class FavouriteActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         quotationsArrayAdapter.clear();
+
                         // No hace falta notificar que los datos cambian porque
                         // el padre del adapter (ArrayAdapter) ya lo hace al hacer clear()
+                        deleteAllQuotations();
                         menuItem.setVisible(CLEAR_ALL_QUOTATIONS_OPTION_VISIBLE);
                     }
                 });
@@ -126,5 +145,22 @@ public class FavouriteActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(menuItem);
+    }
+
+    private void deleteAllQuotations() {
+        if (selected_database == SQLITE_HELPER_DATABASE) {
+            SQLiteOpenHelperSeminarDatabase.getInstance(this).deleteAllQuotations(this);
+        } else {
+            QuotationRoomDatabase.getInstance(this).quotationDao().deleteAllQuotations();
+        }
+    }
+
+    private void deleteQuotation(int position) {
+        Quotation quotation = quotationsArrayAdapter.getItem(position);
+        if (selected_database == SQLITE_HELPER_DATABASE) {
+            SQLiteOpenHelperSeminarDatabase.getInstance(this).deleteQuotation(this, quotation);
+        } else {
+            QuotationRoomDatabase.getInstance(this).quotationDao().deleteQuotation(quotation);
+        }
     }
 }

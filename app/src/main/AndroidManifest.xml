@@ -30,15 +30,15 @@
             android:name=".SettingsActivity"
             android:label="@string/tag_settings"
             android:parentActivityName=".DashboardActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".FavouriteActivity"
             android:label="@string/tag_favourite_quotations"
-            android:parentActivityName=".DashboardActivity"></activity>
+            android:parentActivityName=".DashboardActivity" />
         <activity
             android:name=".QuotationActivity"
             android:label="@string/tag_random_quotations"
-            android:parentActivityName=".DashboardActivity"></activity>
+            android:parentActivityName=".DashboardActivity" />
     </application>
 
 </manifest>

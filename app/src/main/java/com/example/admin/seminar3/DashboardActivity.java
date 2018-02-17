@@ -1,9 +1,16 @@
 package com.example.admin.seminar3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import java.util.ArrayList;
+
+import databases.QuotationRoomDatabase;
+import pojoObjects.Quotation;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -11,6 +18,13 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (preferences.getBoolean("first_run", true)) {
+            ArrayList<Quotation> quotations = QuotationRoomDatabase.getInstance(this).quotationDao().getQuotations();
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("first_run", false);
+        }
     }
 
     public void dashboardProxy(View view){

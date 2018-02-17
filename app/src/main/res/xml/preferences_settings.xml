@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:key="@string/shared_preferences_username"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/text_view_user_name" />
+    <PreferenceCategory android:title="@string/tag_settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/language_options"
+            android:entryValues="@array/language_options_ids"
+            android:key="list_preference_language"
+            android:title="@string/text_view_quotations_language" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/web_service"
+            android:entryValues="@array/web_service_ids"
+            android:key="list_preference_web_service"
+            android:title="@string/text_view_requests_method" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Database settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/database_settings_ids"
+            android:entryValues="@array/database_settings"
+            android:key="list_preference_database"
+            android:title="@string/database_access_title" />
+    </PreferenceCategory>
+</PreferenceScreen>
