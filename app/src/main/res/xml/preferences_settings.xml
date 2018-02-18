@@ -27,8 +27,8 @@
 
         <ListPreference
             android:defaultValue="1"
-            android:entries="@array/database_settings_ids"
-            android:entryValues="@array/database_settings"
+            android:entries="@array/database_settings"
+            android:entryValues="@array/database_settings_ids"
             android:key="list_preference_database"
             android:title="@string/database_access_title" />
     </PreferenceCategory>

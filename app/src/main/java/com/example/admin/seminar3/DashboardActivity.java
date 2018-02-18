@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import databases.QuotationRoomDatabase;
 import pojoObjects.Quotation;
@@ -21,7 +22,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (preferences.getBoolean("first_run", true)) {
-            ArrayList<Quotation> quotations = QuotationRoomDatabase.getInstance(this).quotationDao().getQuotations();
+            List<Quotation> quotations = QuotationRoomDatabase.getInstance(this).quotationDao().getQuotations();
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("first_run", false);
         }

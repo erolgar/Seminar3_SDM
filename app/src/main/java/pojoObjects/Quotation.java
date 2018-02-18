@@ -13,6 +13,14 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "quotations", indices = {@Index(value = {"quote"}, unique = true)})
 public class Quotation {
 
+    public int getQuotation_id() {
+        return quotation_id;
+    }
+
+    public void setQuotation_id(int quotation_id) {
+        this.quotation_id = quotation_id;
+    }
+
     @PrimaryKey(autoGenerate = true)
     private int quotation_id;
     @ColumnInfo(name = "quote")
@@ -27,14 +35,6 @@ public class Quotation {
     public Quotation(String quoteText, String quoteAuthor) {
         this.quoteText = quoteText;
         this.quoteAuthor = quoteAuthor;
-    }
-
-    public int getId() {
-        return this.quotation_id;
-    }
-
-    public void setId(int id) {
-        this.quotation_id = id;
     }
 
     public String getQuoteText() {

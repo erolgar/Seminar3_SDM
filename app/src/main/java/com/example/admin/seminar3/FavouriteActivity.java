@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -77,7 +78,10 @@ public class FavouriteActivity extends AppCompatActivity {
 
     private void selectDatabase() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        selected_database = sharedPreferences.getInt(LIST_PREFERENCE_DATABASE, 1);
+        Log.d("DATABASE PREFERENCE: ", sharedPreferences.getString(LIST_PREFERENCE_DATABASE, "1"));
+        if (sharedPreferences.getString(LIST_PREFERENCE_DATABASE, "1").equals("1"))
+            selected_database = ROOM_DATABASE;
+        else selected_database = SQLITE_HELPER_DATABASE;
     }
 
     private void removeItemOfList(int pos) {
@@ -97,7 +101,7 @@ public class FavouriteActivity extends AppCompatActivity {
 
         return selected_database == SQLITE_HELPER_DATABASE ?
                 SQLiteOpenHelperSeminarDatabase.getInstance(this).getQuotations(this)
-                : QuotationRoomDatabase.getInstance(this).quotationDao().getQuotations();
+                : (ArrayList<Quotation>) QuotationRoomDatabase.getInstance(this).quotationDao().getQuotations();
       /*  ArrayList<Quotation> exampleData = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {
@@ -149,8 +153,10 @@ public class FavouriteActivity extends AppCompatActivity {
 
     private void deleteAllQuotations() {
         if (selected_database == SQLITE_HELPER_DATABASE) {
+            Log.d("SQLiteHelper: ", "delete all quotations using SQL HELPER");
             SQLiteOpenHelperSeminarDatabase.getInstance(this).deleteAllQuotations(this);
         } else {
+            Log.d("Room: ", "delete all quotations using ROOM");
             QuotationRoomDatabase.getInstance(this).quotationDao().deleteAllQuotations();
         }
     }

@@ -50,7 +50,6 @@ public class SQLiteOpenHelperSeminarDatabase extends SQLiteOpenHelper {
     public ArrayList<Quotation> getQuotations(Context context) {
         SQLiteOpenHelperSeminarDatabase helper = SQLiteOpenHelperSeminarDatabase.getInstance(context);
 
-
         SQLiteDatabase database = helper.getReadableDatabase();
         helper.onCreate(database);
         Cursor cursor = database.query("quotations", new String[]{COLUMN_QUOTE, COLUMN_AUTHOR}, null, null, null, null, null);

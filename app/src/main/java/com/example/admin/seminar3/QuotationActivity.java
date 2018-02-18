@@ -4,16 +4,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import java.util.Formatter;
 import java.util.Locale;
 
-import databases.QuotationDao;
 import databases.QuotationRoomDatabase;
 import databases.SQLiteOpenHelperSeminarDatabase;
 import pojoObjects.Quotation;
@@ -30,7 +27,7 @@ public class QuotationActivity extends AppCompatActivity {
     private static final int SQLITE_HELPER_DATABASE = 0;
     private static final int ROOM_DATABASE = 1;
 
-    private static int recivedQuotes = 0;
+    private static int recivedQuotations = 0;
     private static Menu optionsMenu;
     private static TextView textViewQuotation;
     private static TextView textViewAuthor;
@@ -58,29 +55,31 @@ public class QuotationActivity extends AppCompatActivity {
             onCreateOptionsMenu(optionsMenu);
             textViewQuotation.setText(savedInstanceState.getString(QUOTATION_KEY_SAVED));
             textViewAuthor.setText(savedInstanceState.getString(AUTHOR_KEY_SAVED));
-            recivedQuotes = savedInstanceState.getInt(QUOTATION_NUMBER_KEY_SAVED);
+            recivedQuotations = savedInstanceState.getInt(QUOTATION_NUMBER_KEY_SAVED);
             add_option_visible = savedInstanceState.getBoolean(ADD_OPTION_KEY_SAVED);
         }
     }
 
     private void selectDatabase() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        selected_database = sharedPreferences.getInt(LIST_PREFERENCE_DATABASE, 1);
+        if (sharedPreferences.getString(LIST_PREFERENCE_DATABASE, "1").equals("1"))
+            selected_database = ROOM_DATABASE;
+        else selected_database = SQLITE_HELPER_DATABASE;
     }
 
     private void refreshQuotation() {
         StringBuilder stringBuilder = new StringBuilder();
         Formatter formatter = new Formatter(stringBuilder, Locale.ENGLISH);
         textViewQuotation = findViewById(R.id.quotation_activity_tv_refreshview);
-        textViewQuotation.setText(formatter.format(getResources().getString(R.string.text_view_sample_quotation), recivedQuotes).toString());
+        textViewQuotation.setText(formatter.format(getResources().getString(R.string.text_view_sample_quotation), recivedQuotations).toString());
         textViewAuthor = findViewById(R.id.quotation_activity_empty_tv);
-        textViewAuthor.setText(formatter.format(getResources().getString(R.string.text_view_sample_author), recivedQuotes).toString());
+        textViewAuthor.setText(formatter.format(getResources().getString(R.string.text_view_sample_author), recivedQuotations).toString());
     }
 
     private Boolean existsQuotation(String quote, String author) {
         return selected_database == SQLITE_HELPER_DATABASE ?
                 SQLiteOpenHelperSeminarDatabase.getInstance(this).isQuotationFavourite(this, new Quotation(quote, author))
-                : !QuotationRoomDatabase.getInstance(this).quotationDao().getQuotation(quote).equals(null);
+                : !(QuotationRoomDatabase.getInstance(this).quotationDao().getQuotation(quote) == null);
     }
 
     @Override
@@ -102,7 +101,7 @@ public class QuotationActivity extends AppCompatActivity {
                 return true;
             case R.id.item_refresh:
                 refreshQuotation();
-                recivedQuotes++;
+                recivedQuotations++;
                 if (!existsQuotation(textViewQuotation.getText().toString(), textViewAuthor.getText().toString())) {
                     optionsMenu.findItem(R.id.item_add).setVisible(true);
                     add_option_visible = true;
@@ -116,10 +115,12 @@ public class QuotationActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString(QUOTATION_KEY_SAVED, textViewQuotation.getText().toString());
-        savedInstanceState.putString(AUTHOR_KEY_SAVED, textViewAuthor.getText().toString());
-        savedInstanceState.putInt(QUOTATION_NUMBER_KEY_SAVED, recivedQuotes);
-        savedInstanceState.putBoolean(ADD_OPTION_KEY_SAVED, add_option_visible);
+        if (textViewQuotation != null && textViewQuotation != null) {
+            savedInstanceState.putString(QUOTATION_KEY_SAVED, textViewQuotation.getText().toString());
+            savedInstanceState.putString(AUTHOR_KEY_SAVED, textViewAuthor.getText().toString());
+            savedInstanceState.putInt(QUOTATION_NUMBER_KEY_SAVED, recivedQuotations);
+            savedInstanceState.putBoolean(ADD_OPTION_KEY_SAVED, add_option_visible);
+        }
     }
 
     public void addQuotation(Quotation quotation) {

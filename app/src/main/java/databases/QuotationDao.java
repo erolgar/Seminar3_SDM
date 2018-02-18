@@ -24,7 +24,7 @@ public interface QuotationDao {
     void deleteQuotation(Quotation quotation);
 
     @Query("SELECT * FROM quotations")
-    ArrayList<Quotation> getQuotations();
+    List<Quotation> getQuotations();
 
     @Query("SELECT * FROM quotations WHERE quote LIKE :quotation_text")
     Quotation getQuotation(String quotation_text);
