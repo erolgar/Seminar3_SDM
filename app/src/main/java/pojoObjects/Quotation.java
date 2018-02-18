@@ -30,6 +30,7 @@ public class Quotation {
     private String quoteAuthor;
 
     public Quotation() {
+
     }
 
     public Quotation(String quoteText, String quoteAuthor) {
